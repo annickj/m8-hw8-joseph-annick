@@ -8,6 +8,8 @@
   --white: #FFFFFF;
   --off-white: #F1F2F4;
   --gray: #A1A1A1;
+  --glow: rgb(122, 50, 255);
+  
 }
 
 body {
@@ -39,13 +41,54 @@ header {
 header a {
   font-size: 1.5rem;
   color: var(--off-white);
+  transition: color 0.4s ease-in-out, transform 0.4s ease-in-out;
+  position: relative;
+  text-decoration: none;
 }
+
+header a:hover {
+  color: var(--secondary-color);
+  transform: rotate(5deg);
+  text-shadow: 0 0 30px var(--text-color);
+}
+
+header a::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--secondary-color);
+  visibility: hidden;
+  transform: translateX(-100%);
+  transition: all 0.4s ease-in-out;
+}
+
+header a:hover::after {
+  visibility: visible;
+  transform: translateX(0);
+}
+
 /* end header link animations */
 
 /* article link transitions */
 main a {
   color: var(--danger-color);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.4s ease-in-out, transform 0.4s ease-in-out;
+  background-image: linear-gradient(120deg, var(--primary-color) 0%, var(--glow) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
+
+main a:hover {
+  transform: scale(1.2);
+  background-image: linear-gradient(120deg, var(--warn-color) 0%, var(--danger-color) 100%);
+}
+
 /* end article link transitions */
 
 main > article, nav{
@@ -100,6 +143,14 @@ section.hero > button {
   border-radius: 12px;
   text-transform: uppercase;
   cursor: pointer;
+  transition: transform 0.4s ease-in-out, background-color 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+  animation: bounce 2s infinite;
+}
+
+section.hero > button:hover {
+  transform: rotate(10deg);
+  background-color: var(--warn-color);
+  box-shadow: 0 0 20px var(--glow);
 }
 
 main article {
@@ -126,4 +177,13 @@ footer {
   text-transform: uppercase;
   padding: 24px 0;
   color: var(--off-white);
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
